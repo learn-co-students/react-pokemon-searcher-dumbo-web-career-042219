@@ -29,16 +29,23 @@ class PokemonCard extends React.Component {
           <div className="image">
             <img name={this.props.pokemon.name} src={this.state.url ? this.state.url : this.props.pokemon.sprites.front} alt="oh no!" />
           </div>
+
           <div className="content">
             <div className="header">{this.props.pokemon.name}</div>
           </div>
           <div className="extra content">
             <span>
               <i className="icon heartbeat red" />
-              Abilities: {this.props.pokemon.abilities.join(", ")} hp
+              Abilities: {this.props.pokemon.abilities.join(", ")}
             </span>
+            <div>
+            <span>
+              Weight : {this.props.pokemon.weight}
+            </span>
+            </div>
           </div>
-        </div>
+          </div>
+
       </Card>
     )
   }

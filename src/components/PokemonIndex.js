@@ -10,8 +10,7 @@ class PokemonPage extends React.Component {
     pokemonList: [],
     unfilteredPokemonList: [],
     searchTerm: "",
-    sortedList: [],
-    sortValue: "",
+    sortedList: []
   }
 
 //-------------------FETCH POKEMON LIST-----------------------------
@@ -30,42 +29,41 @@ class PokemonPage extends React.Component {
 //---------------------------------POKEMON SEARCH------------------------
   handleSearch = (event, data) => {
     this.setState({searchTerm: data.value})
-    // this.setState({
-    //   pokemonList: [...this.state.unfilteredPokemonList]
-    // })
-    //
-    // let allPokemon = [...this.state.pokemonList]
+    this.setState({
+      pokemonList: [...this.state.unfilteredPokemonList]
+    })
 
-  //   let filteredPokemon = allPokemon.filter(pokemon => pokemon.name.includes(this.state.searchTerm)
-  // )
-  // this.setState({pokemonList: filteredPokemon})
+    let allPokemon = [...this.state.pokemonList]
+
+    let filteredPokemon = allPokemon.filter(pokemon => pokemon.name.includes(this.state.searchTerm)
+  )
+  this.setState({pokemonList: filteredPokemon})
 }
 
 
   handleSort = (sortValue) => {
     console.log(sortValue);
-    this.setState({sortValue: sortValue})
-  //   let list = [...this.state.pokemonList]
-  //
-  //   if (sortValue==="Alphabetically") {
-  //     const sorted = list.sort((a, b) => {
-  //       return a.name.localeCompare(b.name)
-  //     })
-  //
-  //   this.setState({pokemonList: sorted})
-  //
-  // } else if (sortValue==="Weight") {
-  //   const weightSorted = list.sort((a, b) => {
-  //     return a.weight > b.weight ? 1 : -1
-  //     // return a.weight.localeCompare(b.weight)
-  //     // console.log(a.weight + "---- " + b.weight);
-  //     // return a.weight.localeCompare(b.weight)
-  //
-  //   })
+    let list = [...this.state.pokemonList]
+
+    if (sortValue==="Alphabetically") {
+      const sorted = list.sort((a, b) => {
+        return a.name.localeCompare(b.name)
+      })
+
+    this.setState({pokemonList: sorted})
+
+  } else if (sortValue==="Weight") {
+    const weightSorted = list.sort((a, b) => {
+      return a.weight > b.weight ? 1 : -1
+      // return a.weight.localeCompare(b.weight)
+      // console.log(a.weight + "---- " + b.weight);
+      // return a.weight.localeCompare(b.weight)
+
+    })
 
 
-    // this.setState({pokemonList: weightSorted})
-  // }
+    this.setState({pokemonList: weightSorted})
+  }
 
 }
 
@@ -75,23 +73,6 @@ class PokemonPage extends React.Component {
 
 
   render() {
-    let filteredPokemon = this.state.unfilteredPokemonList.filter(pokemon => pokemon.name.includes(this.state.searchTerm)
-  )
-  if (this.state.sortValue==="Alphabetically") {
-      filteredPokemon = filteredPokemon.sort((a, b) => {
-        return a.name.localeCompare(b.name)
-      })
-
-  } else if (this.state.sortValue==="Weight") {
-    filteredPokemon = filteredPokemon.sort((a, b) => {
-      return a.weight > b.weight ? 1 : -1
-      // return a.weight.localeCompare(b.weight)
-      // console.log(a.weight + "---- " + b.weight);
-      // return a.weight.localeCompare(b.weight)
-
-    })
-  }
-
 
     // console.log(this.state.pokemonList)
     return (
@@ -103,7 +84,7 @@ class PokemonPage extends React.Component {
         <Sort sort={this.handleSort} />
         <br />
         <PokemonCollection
-          pokemonList={filteredPokemon}
+          pokemonList={this.state.pokemonList}
           />
         <br />
         <PokemonForm />

@@ -6,7 +6,9 @@ import _ from 'lodash'
 
 class PokemonPage extends React.Component {
   state = {
-    pokemonList: []
+    pokemonList: [],
+    unfilteredPokemonList: [],
+    searchTerm: ""
   }
 
 //-------------------FETCH POKEMON LIST-----
@@ -16,18 +18,34 @@ class PokemonPage extends React.Component {
     .then(res => res.json())
     .then(data => {
       this.setState({pokemonList: data})
+      this.setState({unfilteredPokemonList: data})
 
     })
   }
 
 
+//---------------------------------POKEMON SEARCH------------------------
+  handleSearch = (event, data) => {
+    this.setState({searchTerm: data.value})
+    this.setState({
+      pokemonList: [...this.state.unfilteredPokemonList]
+    })
+
+    let allPokemon = [...this.state.pokemonList]
+
+    let filteredPokemon = allPokemon.filter(pokemon => pokemon.name.includes(this.state.searchTerm)
+  )
+  this.setState({pokemonList: filteredPokemon})
+}
+
   render() {
-    console.log(this.state)
+
+    // console.log(this.state)
     return (
       <div>
         <h1>Pokemon Searcher</h1>
         <br />
-        <Search onSearchChange={_.debounce(() => console.log('🤔'), 500)} showNoResults={false} />
+        <Search onSearchChange={_.debounce(this.handleSearch, 500)} />
         <br />
         <PokemonCollection
           pokemonList={this.state.pokemonList}

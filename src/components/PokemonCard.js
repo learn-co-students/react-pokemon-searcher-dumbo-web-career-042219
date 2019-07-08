@@ -21,10 +21,6 @@ class PokemonCard extends React.Component {
   }
 
   render() {
-    // if (this.state.backSide) {
-    //   this.setState({url: this.props.pokemon.sprites.front})
-    // }
-
 
 
     return (

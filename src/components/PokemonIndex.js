@@ -60,21 +60,30 @@ class PokemonPage extends React.Component {
       // return a.weight.localeCompare(b.weight)
 
     })
-
-
     this.setState({pokemonList: weightSorted})
   }
-
 }
 
-
-
+handleNewPokemon = (pokemonObj) => {
+  console.log(pokemonObj);
+  const pokemon = {
+    weight: pokemonObj.weight,
+    id: this.state.pokemonList.length,
+    name: pokemonObj.name,
+    abilities: [],
+    sprites: {
+      front: pokemonObj.frontUrl,
+      back: pokemonObj.backUrl
+    }
+  }
+    this.setState({pokemonList: [...this.state.pokemonList,pokemon] })
+}
 
 
 
   render() {
 
-    // console.log(this.state.pokemonList)
+    console.log(this.state.pokemonList)
     return (
       <div>
         <h1>Pokemon Searcher</h1>
@@ -83,11 +92,14 @@ class PokemonPage extends React.Component {
         <br />
         <Sort sort={this.handleSort} />
         <br />
+        <PokemonForm onNewPokemon={this.handleNewPokemon} />
+        < br />
         <PokemonCollection
           pokemonList={this.state.pokemonList}
           />
         <br />
-        <PokemonForm />
+
+
       </div>
     )
   }

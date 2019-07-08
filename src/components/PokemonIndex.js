@@ -3,6 +3,7 @@ import PokemonCollection from './PokemonCollection'
 import PokemonForm from './PokemonForm'
 import { Search } from 'semantic-ui-react'
 import _ from 'lodash'
+import Sort from './Sort'
 
 class PokemonPage extends React.Component {
   state = {
@@ -11,7 +12,7 @@ class PokemonPage extends React.Component {
     searchTerm: ""
   }
 
-//-------------------FETCH POKEMON LIST-----
+//-------------------FETCH POKEMON LIST-----------------------------
 
   componentDidMount() {
     fetch("http://localhost:3000/pokemon")
@@ -38,6 +39,19 @@ class PokemonPage extends React.Component {
   this.setState({pokemonList: filteredPokemon})
 }
 
+
+  handleSort = (sortValue) => {
+    // console.log(sortValue);
+    // if (sortValue==="Alphabetically") {
+    //
+    // }
+  }
+
+
+
+
+
+
   render() {
 
     // console.log(this.state)
@@ -46,6 +60,8 @@ class PokemonPage extends React.Component {
         <h1>Pokemon Searcher</h1>
         <br />
         <Search onSearchChange={_.debounce(this.handleSearch, 500)} />
+        <br />
+        <Sort sort={this.handleSort} />
         <br />
         <PokemonCollection
           pokemonList={this.state.pokemonList}

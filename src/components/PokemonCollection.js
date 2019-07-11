@@ -7,7 +7,6 @@ class PokemonCollection extends React.Component {
   render() {
 
     const allPokemon = this.props.pokemonsData.map(pokemon => {
-      debugger
       return <PokemonCard pokemonData={pokemon}/>
     })
 
